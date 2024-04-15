@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="/static/assets/css/bootstrap.css" rel="stylesheet" />
+<link rel="icon" href="/static/images/favicon.ico" type="image/x-icon">
+<link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap" rel="stylesheet">
+<title>Joylistic Admin | Menu</title>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+    .navbar {
+        background-color: whitesmoke;
+        padding: 7px;
+        display: flex;
+        justify-content: flex-start;
+    }
+    .logo {
+        width: 100px;
+        height: auto;
+    }
+    .food-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        padding: 20px;
+    }
+    .food-card {
+        width: calc(33.33% - 20px); /* Three cards per row on large screens */
+        margin: 10px;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        overflow: hidden; /* Ensure proper alignment */
+    }
+    .food-info {
+        padding: 15px;
+    }
+    .food-info h3 {
+        margin-top: 0;
+    }
+    .food-info img {
+        width: 100%;
+        height: 450px;
+        border-radius: 5px;
+        margin-bottom: 10px;
+    }
+    .food-actions {
+        display: flex;
+        justify-content: space-between;
+        padding: 15px;
+        border-top: 1px solid #ccc;
+    }
+    .food-actions button {
+        padding: 5px 10px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+    }
+
+    .food-actions button:last-child{
+        background-color: #dc3545;
+    }
+
+    a {
+        text-decoration: none;
+        color: white;
+    }
+    a:hover{
+        text-decoration: none;
+        color: white;
+    }
+ 
+    nav{
+        background-color: aliceblue;
+        padding: 10px;
+    }
+     nav > .container-fluid > .navbar-header > a {
+        color: black;
+        font-family: "Kaushan Script", cursive;
+        font-weight: 700;
+        font-style: normal;
+        font-size: xx-large;
+     }
+
+     
+     nav > .container-fluid > ul > li  > a {
+        color: black;
+        font-family: "Montserrat", sans-serif;
+        font-weight: 600;
+        font-style: normal;
+        font-size: large;
+     }
+    /* Media query for responsiveness */
+    @media screen and (max-width: 768px) {
+        .food-card {
+            width: calc(50% - 20px); /* Two cards per row on medium screens */
+        }
+    }
+
+    @media screen and (max-width: 480px) {
+        .food-card {
+            width: calc(100% - 20px); /* Full width on small screens */
+        }
+    }
+</style>
+</head>
+<body>
+    {% include '__admin_nav.html' %}
+
+    <div class="food-container">
+        {% for meal in meals %}
+        <div class="food-card">
+            <div class="food-info">
+                <h3>{{meal.food_name}}</h3>
+                <p>Price: ₦{{meal.price}}</p>
+                <p>Category: {{meal.category}}</p>
+                <p>In-Stock: {% if meal.in_stock == True %} Yes {% elif meal.in_stock == False %} No {% endif %}</p>
+                <img src="/static/food_images/{{meal.image}}" alt="Food Image 1">
+            </div>
+            <div class="food-actions">
+                <button><a href="{{url_for('edit_meal', ll=meal.id)}}">Edit Food</a></button>
+                <button><a href="{{url_for('delete_meal', ll=meal.id)}}">Delete Food</a></button>
+            </div>
+        </div>
+        {% endfor %}
+        
+        
+        <!-- Add more food cards here as needed -->
+    </div>
+</body>
+</html>

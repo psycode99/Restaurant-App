@@ -1,0 +1,236 @@
+{% extends 'base.html' %}
+
+
+
+{% block content %}
+		<div class="hero">
+  <div  class="container">
+	<div class="row d-flex align-items-center">
+		<div class="col-lg-6 hero-left">
+		    <h1 class="display-4 mb-5">We Love <br>Delicious Foods!</h1>
+		    <div class="mb-2">
+		    	<a class="btn btn-primary btn-shadow btn-lg" href="{{url_for('menu')}}" role="button">Explore Menu</a>
+			    <a class="btn btn-icon btn-lg" href="https://player.vimeo.com/video/33110953" data-featherlight="iframe" data-featherlight-iframe-allowfullscreen="true">
+			    	<span class="lnr lnr-film-play"></span>
+			    	Play Video
+			    </a>
+		    </div>
+		   
+		    <ul class="hero-info list-unstyled d-flex text-center mb-0">
+		    	<li class="border-right">
+		    		<span class="lnr lnr-rocket"></span>
+		    		<h5>
+		    			Fast Delivery
+		    		</h5>
+		    	</li>
+		    	<li class="border-right">
+		    		<span class="lnr lnr-leaf"></span>
+		    		<h5>
+		    			Fresh Food
+		    		</h5>
+		    	</li>
+		    	<li class="">
+		    		<span class="lnr lnr-bubble"></span>
+		    		<h5>
+		    			24/7 Support
+		    		</h5>
+		    	</li>
+		    </ul>
+
+	    </div>
+	    <div class="col-lg-6 hero-right">
+	    	<div class="owl-carousel owl-theme hero-carousel">
+			    <div class="item">
+			    	<img class="img-fluid" src="/static/img/hero-1.jpg" alt="">
+			    </div>
+			    <div class="item">
+			    	<img class="img-fluid" src="/static/img/hero-2.jpg" alt="">
+			    </div>
+			    <div class="item">
+			    	<img class="img-fluid" src="/static/img/hero-3.jpg" alt="">
+			    </div>
+			</div>
+	    </div>
+	</div>
+  </div>
+</div>		<!-- Welcome Section -->
+<section id="gtco-welcome" class="bg-white section-padding">
+    <div class="container">
+        <div class="section-content">
+            <div class="row">
+                <div class="col-sm-5 img-bg d-flex shadow align-items-center justify-content-center justify-content-md-end img-2" style="background-image: url(/static/img/hero-2.jpg);">
+                    
+                </div>
+                <div class="col-sm-7 py-5 pl-md-0 pl-4">
+                    <div class="heading-section pl-lg-5 ml-md-5">
+                        <span class="subheading">
+                            About
+                        </span>
+                        <h2>
+                            Welcome to Joylistic Calabar Kitchen
+                        </h2>
+                    </div>
+                    <div class="pl-lg-5 ml-md-5">
+                        <p>On her way she met a copy. The copy warned the Little Blind Text, that where it came from it would have been rewritten a thousand times and everything that was left from its origin would be the word "and" and the Little Blind Text should turn around and return to its own, safe country. A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
+                        <h3 class="mt-5">Pre-Order Meals</h3>
+                        <div class="row">
+                            <div class="col-4">
+                                <a href="#" class="thumb-menu">
+                                    <img class="img-fluid img-cover" src="/static/food_images/IMG-20240401-WA0020.jpg" />
+                                    <h6>All Soups</h6>
+                                </a>
+                            </div>
+                            <div class="col-4">
+                                <a href="#" class="thumb-menu">
+                                    <img class="img-fluid img-cover" src="/static/food_images/IMG-20240401-WA0022.jpg" />
+                                    <h6>Stew</h6>
+                                </a>
+                            </div>
+                            <div class="col-4">
+                                <a href="#" class="thumb-menu">
+                                    <img class="img-fluid img-cover" src="/static/food_images/IMG-20240401-WA0026.jpg"/>
+                                    <h6>Ekpang</h6>
+                                </a>
+                            </div>
+                            <a href="https://wa.me/09122774807" target="_blank" style="color: white; cursor:pointer" onclick="" class="btn-primary mt-3">Pre-Order  <i class="fab fa-whatsapp"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End of Welcome Section -->		<!-- Special Dishes Section -->
+<section id="gtco-special-dishes" class="bg-grey section-padding">
+    <div class="container">
+        <div class="section-content">
+            <div class="heading-section text-center">
+                <span class="subheading">
+                    Specialties
+                </span>
+                <h2>
+                    Weekly Dishes
+                </h2>
+            </div>
+            
+            <div class="row mt-5">
+                <div class="col-lg-5 col-md-6 align-self-center py-5">
+                    <h2 class="special-number">01.</h2>
+                    <div class="dishes-text">
+                        <h3><span>{{meals[0].category}}</span><br> {{meals[0].food_name}}</h3>
+                        <br>
+                        <br>
+                        <!-- <p class="pt-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate, ea vero alias perferendis quas animi doloribus voluptates. Atque explicabo ea nesciunt provident libero qui eum, corporis esse quos excepturi soluta?</p> -->
+                        <h3 class="special-dishes-price">₦{{ "{:,.2f}".format(meals[0].price) }}</h3>
+                        <a  href="{{url_for('product', ll=meals[0].id)}}" style="color: white; cursor:pointer" onclick="" class="btn-primary mt-3">Order  <i class="fas fa-shopping-cart"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-5 offset-lg-2 col-md-6 align-self-center mt-4 mt-md-0">
+                    <img src="/static/food_images/{{meals[0].image}}" alt="" class="img-fluid shadow w-100">
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col-lg-5 col-md-6 align-self-center order-2 order-md-1 mt-4 mt-md-0">
+                    <img src="/static/food_images/{{meals[1].image}}" alt="" class="img-fluid shadow w-100">
+                </div>
+                <div class="col-lg-5 offset-lg-2 col-md-6 align-self-center order-1 order-md-2 py-5">
+                    <h2 class="special-number">02.</h2>
+                    <div class="dishes-text">
+                        <h3><span>{{meals[1].category}}</span><br> {{meals[1].food_name}}</h3>
+                        <br>
+                        <br>
+                        <!-- <p class="pt-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis, accusamus culpa quam amet ipsam odit ea doloremque accusantium quo, itaque possimus eius. In a quis quibusdam omnis atque vero dolores!</p> -->
+                        <h3 class="special-dishes-price">₦{{ "{:,.2f}".format(meals[1].price) }}</h3>
+                        <a  href="{{url_for('product', ll=meals[1].id)}}" style="color: white; cursor:pointer" onclick="" class="btn-primary mt-3">Order  <i class="fas fa-shopping-cart"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End of Special Dishes Section -->		<!-- Menu Section -->
+<section id="gtco-menu" class="section-padding">
+    <div class="container">
+        <div class="section-content">
+            <div class="row mb-5">
+                <div class="col-md-12">
+                    <div class="heading-section text-center">
+                        <span class="subheading">
+                            Specialties
+                        </span>
+                        <h2>
+                            Our Menu
+                        </h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6 menu-wrap">
+                    <div class="card">
+                        <a href="{{url_for('meals', cat='Main Course')}}">
+                        <img class="card-img-top" src="/static/food_images/IMG-20240401-WA0017.jpg" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title text-center">Main Course</h5>
+                        </div>
+                    </a>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-md-6 col-sm-6 menu-wrap">
+                    <div class="card">
+                        <a href="{{url_for('meals', cat='Soups')}}">
+                        <img class="card-img-top" src="/static/food_images/IMG-20240401-WA0022.jpg" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title text-center">Soups & Stews</h5>
+                        </div>
+                    </a>
+                    </div>
+                </div>
+
+               
+                
+               
+            </div>
+        </div>
+    </div>
+    <center>  <a href="{{url_for('menu')}}"> <button  class="btn btn-primary my-4">View More</button></a> </center>
+</section>
+<!-- End of menu Section -->
+<!-- End of menu Section -->				<!-- Reservation Section -->
+<section id="gtco-reservation" class="bg-fixed bg-white section-padding overlay" style="background-image: url(/static/img/reservation-bg.jpg);">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-5">
+                <div class="section-content bg-white p-5 shadow">
+                    <div class="heading-section text-center">
+                        <span class="subheading">
+                            WhatsApp
+                        </span>
+                        <h2>
+                           Chat With Us
+                        </h2>
+                    </div>
+                    <form method="post" name="contact-us" action="">
+                        <div class="row">
+                            
+                            <div class="col-md-12 form-group">
+                                <textarea class="form-control" id="message" name="message" rows="6" placeholder="Your Message ..."></textarea>
+                            </div>
+                            <div class="col-md-12 text-center">
+                                <button class="btn btn-primary btn-shadow btn-lg" type="submit" name="submit">Send Message</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</section>
+<script>
+
+</script>
+<!-- End of Reservation Section -->		
+{% endblock %}
+</body>
+</html>

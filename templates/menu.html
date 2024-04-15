@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- Menu Section -->
+<!-- Menu Section -->
+<section id="gtco-menu" class="section-padding">
+    <div class="container">
+        <div class="section-content">
+            <div class="row mb-5">
+                <div class="col-md-12">
+                    <div class="heading-section text-center">
+                        <span class="subheading">
+                            Specialties
+                        </span>
+                        <h2>
+                            Our Menu
+                        </h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+               
+                <div class="col-lg-6 col-md-6 col-sm-6 menu-wrap">
+                    <a href="{{  url_for('meals', cat='Main Course') }}">
+                    <div class="card">
+                        
+                        <img class="card-img-top" src="/static/img/breakfast-1.jpg" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title text-center">Main Course</h5>
+                        </div>
+                    </div>
+                </a>
+                </div>
+            
+
+               
+
+                <div class="col-lg-6 col-md-6 col-sm-6 menu-wrap">
+                    <a href="{{  url_for('meals', cat='Soups') }}">
+                    <div class="card">
+                        
+                        <img class="card-img-top" src="/static/img/breakfast-1.jpg" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title text-center">Soups</h5><
+                        </div>
+                    </div>
+                </a>
+                </div>
+
+                <div class="col-lg-6 col-md-6 col-sm-6 menu-wrap">
+                    <a href="{{  url_for('meals', cat='Extras') }}">
+                    <div class="card">
+                        
+                        <img class="card-img-top" src="/static/img/breakfast-1.jpg" alt="Card image cap">
+                        <div class="card-body">
+                           <h5 class="card-title text-center">Extras</h5>
+                        </div>
+                    </div>
+                </a>
+                </div>
+
+                <div class="col-lg-6 col-md-6 col-sm-6 menu-wrap">
+                    <a href="{{  url_for('meals', cat='Proteins') }}">
+                    <div class="card">
+                        
+                        <img class="card-img-top" src="/static/img/breakfast-1.jpg" alt="Card image cap">
+                        <div class="card-body">
+                           <h5 class="card-title text-center">Proteins</h5>
+                        </div>
+                    </div>
+                    </a>
+                </div>
+
+                <div class="col-lg-6 col-md-6 col-sm-6 menu-wrap">
+                    <a href="{{  url_for('meals', cat='Drinks') }}">
+                    <div class="card">
+                        
+                        <img class="card-img-top" src="/static/img/breakfast-1.jpg" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title text-center">Drinks</h5>
+                        </div>
+                    </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End of menu Section -->
+
+<!-- End of menu Section -->		
+{% endblock %}

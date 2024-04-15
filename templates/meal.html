@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{%  block content  %}
+
+<div class="row mb-5 my-5">
+    <div class="col-md-12">
+        <div class="heading-section text-center">
+            <span class="subheading">
+                Specialties
+            </span>
+            <h2>
+                {{cat}}
+            </h2>
+        </div>
+    </div>
+</div>
+
+<div class="food-container">
+    {% for item in items %}
+<div class="food-card">
+    <div class="food-image">
+        <span class="food-price"> ₦{{ "{:,}".format(item.price) }}</span>
+        <img src="/static/food_images/{{item.image}}" alt="Food Image">
+    </div>
+    <div class="food-details">
+        <h3 class="food-name">{{item.food_name}}</h3>
+        <a  href="{{url_for('product', ll=item.id)}}" style="color: white; cursor:pointer" onclick="" class="btn-primary mt-3">Order <i class="fas fa-shopping-cart"></i></a>
+    </div>
+</div>
+{% endfor %}
+
+</div>
+
+{% endblock %}

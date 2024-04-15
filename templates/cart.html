@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="row mb-5 my-5">
+    <div class="col-md-12">
+        <div class="heading-section text-center">
+            <span class="subheading">
+                Specialties
+            </span>
+            <h2>
+               Cart
+            </h2>
+        </div>
+    </div>
+</div>
+
+<div class="cart-items" id="cart-container">
+  <!-- Cart items will be dynamically added here -->
+</div>
+
+<div class="cart-summary">
+    <p>Subtotal: ₦</p>
+    <button class="checkout-btn">Checkout</button>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Retrieve cart items from localStorage
+        const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+        // Get the container element where cart items will be displayed
+        const cartContainer = document.getElementById('cart-container');
+
+        // Loop through each cart item
+        cartItems.forEach(item => {
+            // Create a div element for the cart item
+            const cartItemDiv = document.createElement('div');
+            cartItemDiv.classList.add('cart-item');
+
+            // Create an img element for the product image (you may replace the src attribute with actual image URL)
+            const imgElement = document.createElement('img');
+            imgElement.setAttribute('src', '/static/img/breakfast-1.jpg');
+            imgElement.setAttribute('alt', 'Product Image');
+            cartItemDiv.appendChild(imgElement);
+
+            // Create a div element for item details
+            const itemDetailsDiv = document.createElement('div');
+            itemDetailsDiv.classList.add('item-details');
+
+            // Create a p element for item title
+            const itemTitleP = document.createElement('p');
+            itemTitleP.classList.add('item-title');
+            itemTitleP.textContent = item.name; // Assuming item.name represents the name of the product
+            itemDetailsDiv.appendChild(itemTitleP);
+
+            // Create a p element for item description
+            const itemDescriptionP = document.createElement('p');
+            itemDescriptionP.classList.add('item-description');
+            itemDescriptionP.innerHTML = `Choose Protein: ${item.options.forEach(it => {it.name}) || 'None'} ₦${item.proteinPrice || '0.00'}<br>
+                                         Extras & Sides: ${item.extras || 'None'} ₦${item.extrasPrice || '0.00'}<br>
+                                         <p style="color: #f34949; font-weight:bold;">${item.qty} x ₦${item.total}</p>`;
+            itemDetailsDiv.appendChild(itemDescriptionP);
+
+            // Append item details div to cart item div
+            cartItemDiv.appendChild(itemDetailsDiv);
+
+            // Create a div element for item actions
+            const itemActionsDiv = document.createElement('div');
+            itemActionsDiv.classList.add('item-actions');
+
+            // Create an icon element for deleting the item
+            const trashIcon = document.createElement('i');
+            trashIcon.classList.add('fas', 'fa-trash-alt');
+            trashIcon.setAttribute('id', 'trash-icon');
+            itemActionsDiv.appendChild(trashIcon);
+
+            // Append item actions div to cart item div
+            cartItemDiv.appendChild(itemActionsDiv);
+
+            // Append cart item div to cart container
+            cartContainer.appendChild(cartItemDiv);
+        });
+
+        // Add event listeners to trash icons
+        const trashIcons = document.querySelectorAll('#trash-icon');
+        trashIcons.forEach(icon => {
+            icon.addEventListener('click', () => {
+                const card = icon.closest('.cart-item');
+                card.remove(); // Removes the entire product card from the display
+
+                // You might also want to remove the corresponding item from localStorage here
+                // Be sure to update the subtotal as well if needed
+            });
+        });
+    });
+</script>
+
+{% endblock %}

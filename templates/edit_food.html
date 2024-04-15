@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="/static/assets/css/bootstrap.css" rel="stylesheet" />
+<link rel="icon" href="/static/images/favicon.ico" type="image/x-icon">
+<link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap" rel="stylesheet">
+<title>Joylistic Admin | Edit Food</title>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+    .body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 150px 20px;
+        background-color: #f7f7f7;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+    }
+    .logo-container {
+        text-align: center;
+        margin-bottom: 60px;
+    }
+    .logo {
+        width: 200px;
+        height: auto;
+    }
+    .edit-form-container {
+        width: 400px;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        position: relative; /* Position relative for absolute positioning of logo */
+    }
+  
+    .form-group {
+        margin-bottom: 15px;
+    }
+    .form-group label {
+        display: inline-block;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+    .form-group input,
+    .form-group select {
+        width: 100%;
+        padding: 8px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+    }
+    .form-group input[type="file"] {
+        padding: 5px;
+    }
+    .form-group img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 5px;
+        margin-top: 10px;
+    }
+    .form-group label.checkbox-label {
+        display: inline-block;
+        font-weight: bold;
+        margin-bottom: 0;
+    }
+    .form-group input[type="checkbox"] {
+        display: inline-block;
+    }
+    .form-group button {
+        margin-top: 10px;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    /* Positioning for the logo */
+    .logo-overlay {
+        position: absolute;
+        top: -100px; /* Adjust as needed for positioning */
+        left: calc(50% - 100px); /* Center horizontally */
+        z-index: 1; /* Ensure the logo is above the form */
+    }
+
+    nav{
+        padding: 10px;
+        background-color: aliceblue;
+    }
+
+    nav > .container-fluid > .navbar-header > a{
+        font-family: "Kaushan Script", cursive;
+        font-weight: 700;
+        font-style: normal;
+        font-size: xx-large;
+        color: black;
+    }
+
+    nav > .container-fluid > ul > li  > a{
+        font-family: "Montserrat", sans-serif;
+        font-weight: 600;
+        font-style: normal;
+        font-size:large;
+        color: black;
+    }
+
+    a {
+        text-decoration: none;
+        color: white;
+    }
+    a:hover{
+        text-decoration: none;
+        color: white;
+    }
+</style>
+</head>
+<body>
+    {% include '__admin_nav.html' %}
+
+    <div class="body">
+    <div class="edit-form-container">
+        <div class="logo-overlay">
+            <img class="logo" src="/static/images/logo.png" alt="Logo">
+        </div>
+        <div class="logo-container">
+            <!-- Optional: You can keep the logo container for additional styling or spacing if needed -->
+        </div>
+        <div class="edit-form">
+            <center><h2>Edit Food</h2></center>
+            <form action="{{url_for('edit_meal', ll=meal.id)}}" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="food-name">Food Name</label>
+                    <input type="text" id="food-name" name="food-name" value="{{meal.food_name}}" required>
+                </div>
+                <div class="form-group">
+                    <label for="category">Category</label>
+                    <select  id="category" name="category" required>
+                        <option  selected value="{{meal.category}}">{{meal.category}}</option>
+                       
+                        <option value="Main Course">Main Course</option>
+                        <option value="Soups">Soups</option>
+                        <option value="Extras">Extras</option>
+                        <option value="Proteins">Proteins</option>
+                        <option value="Drinks">Drinks</option>
+                        
+                       
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="price">Price</label>
+                    <input type="number" id="price" name="price" value="{{meal.price}}" required>
+                </div>
+                <div class="form-group">
+                    <label for="image">Image</label>
+                    <input type="file" id="image" name="image" accept="image/*" value="{{meal.image}}">
+                    <img src="/static/food_images/{{meal.image}}" alt="Previous Image">
+                </div>
+
+                <label for="availability" class="checkbox-label">Available</label>
+                <input type="checkbox" id="availability" name="availability" value="available" {% if meal.in_stock %} checked {% endif %}>
+
+                <div class="form-group">
+                    <button type="submit">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    </div>
+</body>
+</html>

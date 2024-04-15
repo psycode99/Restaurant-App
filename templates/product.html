@@ -1,0 +1,229 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row mb-5 my-5">
+    <div class="col-md-12">
+        <div class="heading-section text-center">
+            <span class="subheading">
+                Specialties
+            </span>
+            <h2>
+                {{meal.food_name}}
+            </h2>
+        </div>
+    </div>
+</div>
+
+<div class="food-containerz">
+<div class="food-card">
+    <div class="food-image">
+        <span class="food-price"> ₦{{ "{:,}".format(meal.price) }}</span>
+        <img src="/static/food_images/{{ meal.image }}" alt="Food Image">
+    </div>
+    <div style="padding-top: 20px;" class="food-details">
+        <h3 class="food-name">{{meal.food_name}}</h3>
+        <!-- <label style="font-weight: bold;" for="packaging">Choose Packaging:</label>
+        <select id="packaging" name="packaging">
+            <option value="box">Regular Packaging (Free)</option>
+            <option value="bag">Regular Pack (+₦300) </option>
+        </select>
+
+        <label style="font-weight: bold;" for="swallow">Choose Swallow:</label>
+        <select id="packaging" name="packaging">
+            <option value="box">Eba (+₦300) </option>
+            <option value="bag">Semo (+₦300) </option>
+        </select> -->
+
+        
+    
+        <!-- <a  style="color: white; cursor:pointer" onclick="addToCart()" class="btn-primary mt-3">Add to Cart <i class="fas fa-shopping-cart"></i></a> -->
+    </div>
+   
+</div>
+
+
+</div>
+
+<div class="food-containerz">
+    {% if proteins_len <= 0 %}
+    <div></div>
+    {% else %}
+    <div class="food-card">
+        <div class="extras-container">
+            <h3 class="food-name">Protein</h3>
+            {% for protein in proteins %}
+            <label for="{{protein.food_name}}">{{protein.food_name}} (+₦{{protein.price}})   <input type="checkbox" name="{{protein.food_name}}" data-price="{{protein.price}}"></label>
+            {% endfor %}
+        </div>
+        
+    </div>
+    {% endif %}
+    
+    {% if extras_len <= 0 %}
+    <div></div>
+    {% else %}
+    <div class="food-card">
+        <div class="extras-container">
+            <h3 class="food-name">Extras</h3>
+            {% for extra in extras %}
+            <label for="{{extra.food_name}}">{{extra.food_name}} (+₦{{extra.price}})   <input type="checkbox" name="{{extra.food_name}}" data-price="{{extra.price}}"></label>
+            {% endfor %}
+            
+        </div>
+    </div>
+    {% endif %}
+
+    {% if drinks_len <= 0 %}
+    <div ></div>
+
+    {% else %}
+    <div class="food-card">
+        <div class="extras-container">
+            <h3 class="food-name">Drinks</h3>
+            {% for drink in drinks %}
+            <label for="{{drink.food_name}}">{{drink.food_name}} (+₦{{drink.price}})   <input type="checkbox" name="{{drink.food_name}}" data-price="{{drink.price}}"></label>
+            {% endfor %}
+            
+        </div>
+    </div>
+    {% endif %}
+    
+</div>
+<center> 
+    <h3 class="food-name">Options Total: <span id="options-price">₦00.00</span> </h3> <br>
+    <h3 class="food-name">Total: <span id="total-price">₦{{ "{:,.2f}".format(meal.price) }}</span> </h3><br>
+    <div class="quantity-field">
+        <div class="quantity-btn minus-btn">-</div>
+        <div class="quantity-value">1</div>
+        <div class="quantity-btn plus-btn">+</div>
+    </div>
+    <br>
+    <a  style="color: white; cursor:pointer; " onclick="addToCart()" class="btn-primary mt-3 mb-5">Add to Cart <i class="fas fa-shopping-cart"></i></a></center>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const extrasDivs = document.querySelectorAll('.extras-container');
+        const optionsPriceElement = document.getElementById('options-price');
+        const totalPriceElement = document.getElementById('total-price');
+        const quantityValue = document.querySelector('.quantity-value');
+        const minusBtn = document.querySelector('.minus-btn');
+        const plusBtn = document.querySelector('.plus-btn');
+        const mealPrice = parseFloat("{{ meal.price }}");
+    
+        function formatPrice(price) {
+            return price.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+        }
+
+        function updateTotalPrice() {
+            let selectedExtrasPrice = 0;
+    
+            // Calculate totalPrice based on selected checkboxes
+            extrasDivs.forEach(div => {
+                const checkboxes = div.querySelectorAll('input[type="checkbox"]');
+                checkboxes.forEach(checkbox => {
+                    if (checkbox.checked) {
+                        selectedExtrasPrice += parseFloat(checkbox.dataset.price);
+                    }
+                });
+            });
+    
+            // Update total price of options with formatted price
+        optionsPriceElement.textContent = `₦${formatPrice(selectedExtrasPrice)}`;
+
+        // Calculate total price including meal price and options price
+        const totalPrice = mealPrice + selectedExtrasPrice;
+
+        // Update total price with formatted price
+        totalPriceElement.textContent = `₦${formatPrice(totalPrice)}`;
+        }
+    
+        // Event listener for checkbox changes
+        extrasDivs.forEach(div => {
+            const checkboxes = div.querySelectorAll('input[type="checkbox"]');
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', () => {
+                    updateTotalPrice();
+                });
+            });
+        });
+    
+        // Event listeners for quantity buttons
+        minusBtn.addEventListener('click', () => {
+            let quantity = parseInt(quantityValue.textContent);
+            if (quantity > 1) {
+                quantity--;
+                quantityValue.textContent = quantity;
+                updateTotalPrice();
+            }
+        });
+    
+        plusBtn.addEventListener('click', () => {
+            let quantity = parseInt(quantityValue.textContent);
+            quantity++;
+            quantityValue.textContent = quantity;
+            updateTotalPrice();
+        });
+    });
+    
+</script>
+<script>
+	// Development purpose
+	//localStorage.clear();
+	// Get the cart badge element
+   
+
+// Function to add item to cart
+function addToCart() {
+    const optionsPriceElement = document.getElementById('options-price');
+    const totalPriceElement = document.getElementById('total-price');
+    const foodPrice  = parseInt(document.querySelector('.food-price').textContent);
+
+    var food_name = "{{ meal.food_name }}"; // Added quotes around meal.food_name
+    var quantityValue = parseInt(document.querySelector('.quantity-value').textContent); // Get quantity value
+    var optionsPrice = parseFloat(optionsPriceElement.textContent.replace('₦', '').replace(',', '')); // Get options price
+    var totalPrice = parseFloat(totalPriceElement.textContent.replace('₦', '').replace(',', '')); // Get total price
+
+    let allItems = [];
+
+    // Get all checkboxes
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    checkboxes.forEach(checkbox => {
+        if (checkbox.checked) {
+            // Create an object to represent checked checkboxes
+            let item = {
+                name: checkbox.name,
+                price: parseFloat(checkbox.dataset.price),
+            };
+            // Add the item to the array
+            allItems.push(item);
+        }
+    });
+
+    var newItem = {
+        name: food_name,
+        qty: quantityValue,
+        optionsPriceTotal: optionsPrice,
+        mealPrice: parseInt("{{ meal.price }}"),
+        options: allItems,
+        total: (totalPrice * quantityValue)
+    };
+    // Get current cart count from local storage or default to 0
+    let cartCount = localStorage.getItem('cartCount') || 0;
+    
+    // Increment cart count
+    cartCount++;
+    
+    // Update cart badge and local storage
+    cartBadge.textContent = cartCount;
+    localStorage.setItem('cartCount', cartCount);
+	
+	var cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+
+// Add the new item to the cart
+	cartItems.push(newItem);
+
+	// Store the updated cart items back into local storage
+	localStorage.setItem('cart', JSON.stringify(cartItems));
+}
+
+</script>
+{% endblock %}
